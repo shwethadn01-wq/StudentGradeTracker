@@ -26,6 +26,15 @@ public class AchievementRecord extends AcademicRecord {
             throw new IllegalArgumentException("Achievement level cannot be empty");
         }
 
+        if (!type.equalsIgnoreCase("Academic")
+                && !type.equalsIgnoreCase("Hackathon")
+                && !type.equalsIgnoreCase("Workshop")
+                && !type.equalsIgnoreCase("Certification")
+                && !type.equalsIgnoreCase("Extracurricular")) {
+
+            throw new IllegalArgumentException("Invalid achievement type");
+        }
+
         this.type = type.trim();
         this.title = title.trim();
         this.organizer = organizer.trim();
