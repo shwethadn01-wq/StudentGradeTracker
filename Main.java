@@ -27,13 +27,37 @@ public class Main {
         }
     }
     static void register() throws GradeTrackerException {
-        System.out.print("ID Name Dept Year Sem: ");
-        int id = sc.nextInt(); String n = sc.next(); String d = sc.next(); int y = sc.nextInt(); int sem = sc.nextInt();
-        if (ids.contains(id)) throw new GradeTrackerException("Duplicate ID");
-        if (n.isEmpty() || id < 0) throw new GradeTrackerException("Invalid student");
-        ids.add(id); students.add(new Student(id, n, d, y, sem));
-        System.out.println("Registered!");
+    System.out.print("ID Name Dept Year Sem: ");
+
+    int id = sc.nextInt();
+    String n = sc.next();
+    String d = sc.next();
+    int y = sc.nextInt();
+    int sem = sc.nextInt();
+
+    if (id <= 0) {
+        throw new GradeTrackerException("Student ID must be positive");
     }
+
+    if (ids.contains(id)) {
+        throw new GradeTrackerException("Duplicate Student ID");
+    }
+
+    if (n.trim().isEmpty() || d.trim().isEmpty()) {
+        throw new GradeTrackerException("Name and department cannot be empty");
+    }
+
+    if (y <= 0 || sem <= 0) {
+        throw new GradeTrackerException("Invalid year or semester");
+    }
+
+    Student student = new Student(id, n, d, y, sem);
+
+    students.add(student);
+    ids.add(id);
+
+    System.out.println("Student registered successfully!");
+}
     static void update() {
         System.out.print("ID: "); Student s = search(sc.nextInt()); sc.nextLine();
         if (s == null) { System.out.println("Not found"); return; }
