@@ -15,7 +15,21 @@ public class Main {
             int ch = sc.nextInt(); sc.nextLine();
             try {
                 if (ch == 1) register();
-                else if (ch == 2) students.forEach(s -> System.out.println(s.getId() + " " + s.getName() + " " + s.getDept()));
+                else if (ch == 2) {
+    if (students.isEmpty()) {
+        System.out.println("No student records available.");
+    } else {
+        System.out.println("\n========== STUDENT DETAILS ==========");
+        for (Student s : students) {
+            System.out.println("Student ID   : " + s.getId());
+            System.out.println("Name         : " + s.getName());
+            System.out.println("Department   : " + s.getDept());
+            System.out.println("Year         : " + s.getYear());
+            System.out.println("Semester     : " + s.getSemester());
+            System.out.println("-------------------------------------");
+        }
+    }
+}
                 else if (ch == 3) { System.out.print("ID: "); Student s = search(sc.nextInt()); System.out.println(s == null ? "Not found" : s.getName()); }
                 else if (ch == 4) update();
                 else if (ch == 5) addMarks();
