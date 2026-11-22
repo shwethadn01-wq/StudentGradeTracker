@@ -78,7 +78,7 @@ public class Main {
         System.out.print("New Dept: "); s.setDept(sc.nextLine());
         System.out.println("Updated!");
     }
-    static void addMarks() throws GradeTrackerException {
+static void addMarks() throws GradeTrackerException {
     System.out.print("ID Sem No.of Subjects: ");
 
     int id = sc.nextInt();
@@ -115,17 +115,10 @@ public class Main {
             throw new GradeTrackerException("Subject name cannot be empty");
         }
 
-        if (mk < 0 || mk > 100) {
-    throw new GradeTrackerException("Marks must be between 0 and 100");
-}
+        if (mk < 0 || mk > 100 || cr <= 0) {
+            throw new GradeTrackerException("Invalid marks or credits");
+        }
 
-if (cr <= 0) {
-    throw new GradeTrackerException("Credits must be greater than zero");
-}
-
-if (sub == null || sub.trim().isEmpty()) {
-    throw new GradeTrackerException("Subject name cannot be empty");
-}
         s.getSemesters().get(sem).put(sub, new int[]{mk, cr});
 
         bm.checkAndAdd(id, sub, sem, mk);
