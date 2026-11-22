@@ -85,6 +85,9 @@ public class Main {
             System.out.print("Organizer: "); String org = sc.nextLine();
             System.out.print("Date: "); String date = sc.nextLine();
             System.out.print("Level: "); String level = sc.nextLine();
+            System.out.println("==============================");
+            System.out.println(" STUDENT GRADE TRACKER SYSTEM ");
+            System.out.println("==============================");
             am.add(id, new AchievementRecord(type, title, org, date, level));
         } else if (c == 2) am.viewStudent(id, s.getName());
         else { System.out.print("Enter Type: "); am.viewByType(id, sc.nextLine()); }
