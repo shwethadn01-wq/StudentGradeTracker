@@ -79,19 +79,53 @@ public class Main {
         System.out.println("Updated!");
     }
     static void addMarks() throws GradeTrackerException {
-        System.out.print("ID Sem No.of Subjects: ");
-        int id = sc.nextInt(); int sem = sc.nextInt(); int n = sc.nextInt(); sc.nextLine();
-        Student s = search(id); if (s == null) { System.out.println("Not found"); return; }
-        s.getSemesters().putIfAbsent(sem, new HashMap<>());
-        for (int i = 0; i < n; i++) {
-            System.out.print("Subject Credits Marks: ");
-            String sub = sc.next(); int cr = sc.nextInt(); int mk = sc.nextInt(); sc.nextLine();
-            if (mk < 0 || mk > 100 || cr <= 0) throw new GradeTrackerException("Invalid marks/credits");
-            s.getSemesters().get(sem).put(sub, new int[]{mk, cr});
-            bm.checkAndAdd(id, sub, sem, mk);
-        }
-        System.out.println("Marks added!");
+    System.out.print("ID Sem No.of Subjects: ");
+
+    int id = sc.nextInt();
+    int sem = sc.nextInt();
+    int n = sc.nextInt();
+    sc.nextLine();
+
+    Student s = search(id);
+
+    if (s == null) {
+        System.out.println("Student not found");
+        return;
     }
+
+    if (sem <= 0) {
+        throw new GradeTrackerException("Invalid semester number");
+    }
+
+    if (n <= 0) {
+        throw new GradeTrackerException("Number of subjects must be positive");
+    }
+
+    s.getSemesters().putIfAbsent(sem, new HashMap<>());
+
+    for (int i = 0; i < n; i++) {
+        System.out.print("Subject Credits Marks: ");
+
+        String sub = sc.next();
+        int cr = sc.nextInt();
+        int mk = sc.nextInt();
+        sc.nextLine();
+
+        if (sub.trim().isEmpty()) {
+            throw new GradeTrackerException("Subject name cannot be empty");
+        }
+
+        if (mk < 0 || mk > 100 || cr <= 0) {
+            throw new GradeTrackerException("Invalid marks or credits");
+        }
+
+        s.getSemesters().get(sem).put(sub, new int[]{mk, cr});
+
+        bm.checkAndAdd(id, sub, sem, mk);
+    }
+
+    System.out.println("Semester records updated successfully!");
+} 
     static void report() {
         System.out.print("ID Sem: "); int id = sc.nextInt(); int sem = sc.nextInt();
         Student s = search(id); if (s == null || !s.getSemesters().containsKey(sem)) { System.out.println("No data"); return; }
