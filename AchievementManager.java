@@ -62,23 +62,35 @@ public class AchievementManager {
 
     public void viewByType(int id, String type) {
 
-        if (!map.containsKey(id)) {
-            System.out.println("No achievements found for this student.");
-            return;
-        }
+    if (id <= 0) {
+        System.out.println("Invalid student ID!");
+        return;
+    }
 
-        boolean found = false;
+    if (type == null || type.trim().isEmpty()) {
+        System.out.println("Achievement type cannot be empty!");
+        return;
+    }
 
-        for (AchievementRecord a : map.get(id)) {
+    if (!map.containsKey(id) || map.get(id).isEmpty()) {
+        System.out.println("No achievements found for this student.");
+        return;
+    }
 
-            if (a.type.equalsIgnoreCase(type)) {
-                a.displayDetails();
-                found = true;
-            }
-        }
+    boolean found = false;
 
-        if (!found) {
-            System.out.println("No achievements found for this type.");
+    System.out.println("\n===== ACHIEVEMENTS BY TYPE =====");
+
+    for (AchievementRecord a : map.get(id)) {
+
+        if (a.type.equalsIgnoreCase(type.trim())) {
+            a.displayDetails();
+            found = true;
         }
     }
+
+    if (!found) {
+        System.out.println("No achievements found for this type.");
+    }
+}
 }
